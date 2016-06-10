@@ -5,7 +5,7 @@ using DG.Tweening;
 public abstract class Actor : MonoBehaviour
 {
 
-    int health;
+    public int health;
     public float speed;
     public Weapon currentWeapon;
     public string weaponName = "Punch";

@@ -8,6 +8,7 @@ public class Player : Actor
    // SpriteRenderer spRend;
     Ray2D rayCast;
     RaycastHit2D hit;
+    int influence = 100;
     int followers;
     List<Follower> followerList = new List<Follower>();
     public override void Awake()
@@ -21,20 +22,22 @@ public class Player : Actor
     // Use this for initialization
 	void Start ()
     {
-        //speed = 100;/// *Time.deltaTime;
         body = GetComponent<Rigidbody2D>();
-     //   spRend = GetComponent<SpriteRenderer>();
-        SetHealth(5550);
+        SetHealth(100);
 	}
 	
 	// Update is called once per frame
 	public override void Update ()
     {
-        base.Update();
-        setWeapon();
-        if (Input.GetButton("Fire"))
+        if (ReturnState() == ActorState.ALIVE)
         {
-            Attack(weaponName);
+            base.Update();
+            setWeapon();
+            if (Input.GetButton("Fire"))
+            {
+                Attack(weaponName);
+            }
+            FillBar();
         }
 	}
     protected override void Movement()
@@ -60,5 +63,10 @@ public class Player : Actor
             followerList.Add(Instantiate(_member));
         }
         followers = followerList.Count;
+    }
+    void FillBar()
+    {
+        FillBars.instance.HealthDisplay((float)health / 100);
+        FillBars.instance.InfluenceDisplay((float)influence / 100);
     }
 }

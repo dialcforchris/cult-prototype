@@ -48,8 +48,6 @@ public class NPC : Actor
 	// Update is called once per frame
     public override void Update()
     {
-        Debug.Log("last sighted " + lastSighted + " player pos " + Player.instance.transform.position);
-      //  Debug.Log(behaviour);
         if (ReturnState() == ActorState.ALIVE)
         {
             base.Update();
